@@ -6,6 +6,7 @@ class Index extends Action
 {
     public function execute()
     {
-        die('test admin view');
+        $this->_view->loadLayout();
+        $this->_view->renderLayout();
     }
 }
