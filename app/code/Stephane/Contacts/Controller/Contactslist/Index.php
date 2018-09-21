@@ -6,7 +6,12 @@ class Index extends Action
 {
     public function execute()
     {
-        $this->_view->loadLayout();
-        $this->_view->renderLayout();
+        $contactModel = $this->_objectManager->create('Stephane\Contacts\Model\Contact');
+        $collection = $contactModel->getCollection()->addFieldToFilter('name', array('like'=> 'Pistache'));
+        foreach($collection as $contact) {
+            var_dump($contact->getData());
+        }
+
+        die('test');
     }
 }
