@@ -1,6 +1,7 @@
 <?php
 namespace Stephane\Contacts\Setup;
 
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -29,6 +30,20 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 'default' => '0',
                 'comment' => 'Comment'
             ]);
+        }else  if (version_compare($context->getVersion(), '0.3.0', '<')) {
+
+            /**
+             * Add full text index to our table department
+             */
+
+            $tableName = $setup->getTable('stephane_contacts');
+            $fullTextIntex = array('name','email'); // Column with fulltext index, you can put multiple fields
+            $setup->getConnection()->addIndex(
+                $tableName,
+                $setup->getIdxName($tableName, $fullTextIntex, AdapterInterface::INDEX_TYPE_FULLTEXT),
+                $fullTextIntex,
+                AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
         }
         $setup->endSetup();
     }
