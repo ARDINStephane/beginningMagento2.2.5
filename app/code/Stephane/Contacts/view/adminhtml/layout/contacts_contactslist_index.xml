@@ -7,7 +7,7 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Stephane\Contacts\Block\Adminhtml\Contactslist" template="Stephane_Contacts::contactslist.phtml"/>
+            <uiComponent name="contacts_contactslist_listing"/>
         </referenceContainer>
     </body>
 </page>
