@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <!-- Integration -->
     <argument name="data" xsi:type="array">
@@ -40,6 +41,76 @@
         </argument>
     </dataSource>
 
+    <columns name="jobs_department_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <!-- Bookmarks behaviour -->
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="controlVisibility" xsi:type="boolean">true</item>
+                    <!-- Bookmarks behaviour -->
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">jobs_department_listing.jobs_department_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+
+        <!-- Add columns with checkboxes -->
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+        <!-- ID Column -->
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Name Column -->
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                </item>
+            </argument>
+        </column>
+
+        <!-- Action columns -->
+        <actionsColumn name="actions" class="Stephane\Jobs\Ui\Component\Listing\Column\DepartmentActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+
     <!-- Container Listing Top -->
     <container name="listing_top">
         <argument name="data" xsi:type="array">
@@ -74,33 +145,5 @@
             </argument>
         </container>
     </container>
-    
-    <columns name="jobs_department_columns">
-        <!-- ID Column -->
-        <column name="entity_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
-                    <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">ID</item>
-                </item>
-            </argument>
-        </column>
 
-        <!-- Name Column -->
-        <column name="name">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Name</item>
-                </item>
-            </argument>
-        </column>
-    </columns>
 </listing>

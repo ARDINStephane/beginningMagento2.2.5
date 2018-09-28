@@ -3,7 +3,7 @@
     <!-- Create our type DepartmentGridDataProvider -->
     <virtualType name="DepartmentGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
         <arguments>
-            <argument name="collection" xsi:type="object" shared="false">Stephane\Jobs\Model\Resource\Department\Collection</argument>
+            <argument name="collection" xsi:type="object" shared="false">Stephane\Jobs\Model\ResourceModel\Department\Collection</argument>
             <argument name="filterPool" xsi:type="object" shared="false">DepartmentGridFilterPool</argument> <!-- Define new object for filters -->
         </arguments>
     </virtualType>
