@@ -1,5 +1,6 @@
 <?php namespace Stephane\Jobs\Setup;
 
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Setup\UpgradeSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
@@ -135,7 +136,40 @@ class UpgradeSchema implements UpgradeSchemaInterface
             // Execute SQL to create the table
             $installer->getConnection()->createTable($table);
         }
+        if (version_compare($context->getVersion(), '1.0.0.2') < 0) {
 
+            /**
+             * Add full text index to our table department
+             */
+
+            $tableName = $installer->getTable('stephane_department');
+            $fullTextIntex = array('name'); // Column with fulltext index, you can put multiple fields
+
+
+            $setup->getConnection()->addIndex(
+                $tableName,
+                $installer->getIdxName($tableName, $fullTextIntex, AdapterInterface::INDEX_TYPE_FULLTEXT),
+                $fullTextIntex,
+                AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+
+            /**
+             * Add full text index to our table jobs
+             */
+
+            $tableName = $installer->getTable('stephane_job');
+            $fullTextIntex = array('title', 'type', 'location', 'description'); // Column with fulltext index, you can put multiple fields
+
+
+            $setup->getConnection()->addIndex(
+                $tableName,
+                $installer->getIdxName($tableName, $fullTextIntex, AdapterInterface::INDEX_TYPE_FULLTEXT),
+                $fullTextIntex,
+                AdapterInterface::INDEX_TYPE_FULLTEXT
+            );
+
+        }
         $installer->endSetup();
     }
+
 }
