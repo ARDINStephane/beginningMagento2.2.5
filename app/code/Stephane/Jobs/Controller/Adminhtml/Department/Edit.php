@@ -11,25 +11,25 @@ class Edit extends Action
     /**
      * Core registry
      *
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $_coreRegistry = null;
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     protected $_resultPageFactory;
 
     /**
-     * @var \Stephane\Jobs\Model\Department
+     * @var Department
      */
     protected $_model;
 
     /**
      * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
-     * @param \Stephane\Jobs\Model\Department $model
+     * @param PageFactory $resultPageFactory
+     * @param Registry $registry
+     * @param Department $model
      */
     public function __construct(
         Action\Context $context,
@@ -61,7 +61,7 @@ class Edit extends Action
         // load layout, set active menu and breadcrumbs
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('Stephane_Jobs::department')
+        $resultPage
             ->addBreadcrumb(__('Department'), __('Department'))
             ->addBreadcrumb(__('Manage Departments'), __('Manage Departments'));
         return $resultPage;
