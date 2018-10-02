@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
     <!-- Create our type DepartmentGridDataProvider -->
     <virtualType name="DepartmentGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
         <arguments>
@@ -18,11 +19,14 @@
         </arguments>
     </virtualType>
 
-    <!-- Type for jobs_department_listing_data_source -->
+    <!-- Custom collection factory here -->
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
+                <!-- Type for jobs_department_listing_data_source -->
                 <item name="jobs_department_listing_data_source" xsi:type="string">Stephane\Jobs\Model\ResourceModel\Grid\Department\Collection</item>
+                <!-- Type for jobs_job_listing_data_source -->
+                <item name="jobs_job_listing_data_source" xsi:type="string">Stephane\Jobs\Model\ResourceModel\Grid\Job\Collection</item>
             </argument>
         </arguments>
     </type>
@@ -32,6 +36,32 @@
         <arguments>
             <argument name="mainTable" xsi:type="string">stephane_department</argument>
             <argument name="resourceModel" xsi:type="string">Stephane\Jobs\Model\ResourceModel\Department</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Create our type JobGridDataProvider -->
+    <virtualType name="JobGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Stephane\Jobs\Model\ResourceModel\Job\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">JobGridFilterPool</argument> <!-- Define new object for filters -->
+        </arguments>
+    </virtualType>
+
+    <!-- Create our type JobGridFilterPool -->
+    <virtualType name="JobGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Simulate our class Stephane\Jobs\Model\ResourceModel\Grid\Job\Collection -->
+    <virtualType name="Stephane\Jobs\Model\ResourceModel\Grid\Job\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">stephane_job</argument>
+            <argument name="resourceModel" xsi:type="string">Stephane\Jobs\Model\ResourceModel\Job</argument>
         </arguments>
     </virtualType>
 </config>
