@@ -8,7 +8,6 @@ use \Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class Department extends AbstractDb
 {
-
     /**
      * Initialize resource model
      *
