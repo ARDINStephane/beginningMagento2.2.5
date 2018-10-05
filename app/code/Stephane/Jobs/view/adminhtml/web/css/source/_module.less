@@ -1,0 +1,15 @@
+// Todo: choisir icone sur https://icomoon.io/app/#/select,
+
+
+@webkulstephanejobs-icons-admin__font-name-path: '@{baseDir}Webkul_StephaneJobs/fonts/stephanejobs';
+@webkulstephanejobs-icons-admin__font-name : 'StephaneJobs';
+.lib-font-face(
+  @family-name:@webkulstephanejobs-icons-admin__font-name,
+  @font-path: @webkulstephanejobs-icons-admin__font-name-path,
+  @font-weight: normal,
+  @font-style: normal
+);
+.admin__menu .item-menuid.parent.level-0 > a:before {
+  font-family: @webkulstephanejobs-icons-admin__font-name;
+  content: "\e91f";
+}
